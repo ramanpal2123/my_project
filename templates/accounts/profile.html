@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+{% block page_title %}Profile{% endblock %}
+{% block nav_profile %}active{% endblock %}
+
+{% block content %}
+
+<!-- Profile header -->
+<div class="profile-header">
+  <div class="profile-big-avatar">{{ user.username|first|upper }}</div>
+  <div style="flex:1">
+    <div class="profile-name">{{ user.username }}</div>
+    <div class="profile-email">{{ user.email|default:"No email set" }}</div>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <span class="badge-purple">Active</span>
+      <span class="badge-green">Free Plan</span>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-icon">📋</div>
+    <div class="stat-val">{{ user.task_set.count }}</div>
+    <div class="stat-label">Total tasks</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">✅</div>
+    <div class="stat-val" style="color:#3B6D11">
+      {{ user.task_set.all|length }}
+    </div>
+    <div class="stat-label">Completed</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-icon">📅</div>
+    <div class="stat-val" style="font-size:15px;color:#534AB7">
+      {{ user.date_joined|date:"M Y" }}
+    </div>
+    <div class="stat-label">Member since</div>
+  </div>
+</div>
+
+<!-- Edit profile form -->
+<form method="POST">
+  {% csrf_token %}
+  <div class="pro-card">
+    <div class="pro-card-header">
+      <span>👤</span>
+      <div class="pro-card-title">Personal information</div>
+    </div>
+
+    <div class="form-row-pro">
+      <div>
+        <div class="form-row-label">Username</div>
+        <div class="form-row-hint">Your unique display name</div>
+      </div>
+      <div>
+        <input type="text" name="username" class="pro-input"
+               value="{{ user.username }}" required>
+        {% if form.username.errors %}
+          <div style="color:#A32D2D;font-size:12px;margin-top:4px">{{ form.username.errors.0 }}</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="form-row-pro">
+      <div>
+        <div class="form-row-label">Email address</div>
+        <div class="form-row-hint">Used for login and notifications</div>
+      </div>
+      <div>
+        <input type="email" name="email" class="pro-input"
+               value="{{ user.email }}" placeholder="Enter email">
+        {% if form.email.errors %}
+          <div style="color:#A32D2D;font-size:12px;margin-top:4px">{{ form.email.errors.0 }}</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="form-row-pro" style="justify-content:flex-end;border-bottom:none">
+      <button type="submit" class="btn-pro">Save changes</button>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

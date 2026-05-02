@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block title %}Settings{% endblock %}
+{% block page_title %}Settings{% endblock %}
+{% block nav_settings %}active{% endblock %}
+
+{% block content %}
+
+<!-- Security -->
+<div class="pro-card">
+  <div class="pro-card-header">
+    <span>🔒</span>
+    <div class="pro-card-title">Security</div>
+  </div>
+
+  <div class="form-row-pro">
+    <div>
+      <div class="form-row-label">Password</div>
+      <div class="form-row-hint">Last changed recently</div>
+    </div>
+    <a href="{% url 'change_password' %}" class="btn-pro-outline">Change password</a>
+  </div>
+
+  <div class="form-row-pro">
+    <div>
+      <div class="form-row-label">Two-factor authentication</div>
+      <div class="form-row-hint">Add an extra layer of security to your account</div>
+    </div>
+    <div class="toggle" id="toggle-2fa" onclick="toggleSwitch(this)">
+      <div class="toggle-thumb"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Notifications -->
+<div class="pro-card">
+  <div class="pro-card-header">
+    <span>🔔</span>
+    <div class="pro-card-title">Notifications</div>
+  </div>
+
+  <div class="form-row-pro">
+    <div>
+      <div class="form-row-label">Email notifications</div>
+      <div class="form-row-hint">Receive updates and summaries via email</div>
+    </div>
+    <div class="toggle on" id="toggle-email" onclick="toggleSwitch(this)">
+      <div class="toggle-thumb"></div>
+    </div>
+  </div>
+
+  <div class="form-row-pro">
+    <div>
+      <div class="form-row-label">Task reminders</div>
+      <div class="form-row-hint">Get reminded about pending tasks</div>
+    </div>
+    <div class="toggle on" id="toggle-tasks" onclick="toggleSwitch(this)">
+      <div class="toggle-thumb"></div>
+    </div>
+  </div>
+
+  <div class="form-row-pro">
+    <div>
+      <div class="form-row-label">Weekly digest</div>
+      <div class="form-row-hint">A weekly summary of your activity</div>
+    </div>
+    <div class="toggle" id="toggle-digest" onclick="toggleSwitch(this)">
+      <div class="toggle-thumb"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Appearance -->
+<div class="pro-card">
+  <div class="pro-card-header">
+    <span>🎨</span>
+    <div class="pro-card-title">Appearance</div>
+  </div>
+
+  <div class="form-row-pro">
+    <div>
+      <div class="form-row-label">Theme</div>
+      <div class="form-row-hint">Choose your preferred interface theme</div>
+    </div>
+    <select class="pro-input" style="min-width:140px">
+      <option>Light</option>
+      <option>Dark</option>
+      <option>System default</option>
+    </select>
+  </div>
+
+  <div class="form-row-pro">
+    <div>
+      <div class="form-row-label">Language</div>
+      <div class="form-row-hint">Select your display language</div>
+    </div>
+    <select class="pro-input" style="min-width:140px">
+      <option>English</option>
+      <option>Hindi</option>
+      <option>Spanish</option>
+    </select>
+  </div>
+</div>
+
+<!-- Danger zone -->
+<div class="pro-card" style="border-color:#F7C1C1">
+  <div class="pro-card-header" style="background:#FCEBEB;border-bottom-color:#F7C1C1">
+    <span>⚠️</span>
+    <div class="pro-card-title" style="color:#A32D2D">Danger zone</div>
+  </div>
+
+  <div class="form-row-pro">
+    <div>
+      <div class="form-row-label" style="color:#A32D2D">Delete account</div>
+      <div class="form-row-hint">Permanently delete your account and all your data. This cannot be undone.</div>
+    </div>
+    <button class="btn-danger-pro"
+            onclick="return confirm('Are you sure? This will permanently delete your account.')">
+      Delete account
+    </button>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function toggleSwitch(el) {
+  el.classList.toggle('on');
+}
+</script>
+{% endblock %}
